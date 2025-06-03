@@ -13,14 +13,9 @@ export async function POST(req: NextRequest) {
   console.log("用户输入:", prompt);
 
   const fullPrompt = `你是医疗助手，请将用户输入的化疗/护理计划，解析为未来半年内的所有相关日期，输出格式为：
-       		{
-          		"dates": ["2025-05-27", "2025-06-10", ...] // ISO 格式
-        		}
-
-			现在用户输入是：
-				"${prompt}"
-  			`;
-
+       		 {"dates": ["2025-05-27", "2025-06-10", ...] // ISO 格式 }。
+           如果用户的输入内容与日期无关，请返回空数组。
+			     现在用户输入是："${prompt}"`;
   let result;
   try {
     result = await openai.chat.completions.create({
