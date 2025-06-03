@@ -47,13 +47,14 @@ export async function POST(req: NextRequest) {
     if (
       !json.dates ||
       !Array.isArray(json.dates) ||
+      json.dates.length === 0 ||
       !json.dates.every(
         (d: unknown) =>
           typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d as string)
       )
     ) {
       return NextResponse.json(
-        { error: "AI 返回格式不正确", raw: content },
+        { error: "AI 返回格式不正确或无有效日期", raw: content },
         { status: 400 }
       );
     }
