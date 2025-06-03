@@ -24,15 +24,15 @@ export async function POST(req: NextRequest) {
   let result;
   try {
     result = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: process.env.MODEL!,
       messages: [{ role: "user", content: fullPrompt }],
     });
     console.log("AI 返回:", result.choices[0].message.content);
   } catch (e) {
-    console.error("OpenAI API 调用失败", e);
+    console.error("API 调用失败", e);
     return NextResponse.json(
       {
-        error: "OpenAI API 调用失败",
+        error: "API 调用失败",
         message: e instanceof Error ? e.message : String(e),
       },
       { status: 500 }
@@ -40,7 +40,8 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const content = result.choices[0].message.content!;
+    let content = result.choices[0].message.content!;
+    content = content.replace(/```json|```/g, "").trim();
     const json = JSON.parse(content);
     // 校验 json.dates 是否为数组且每项为 ISO 日期字符串
     if (
