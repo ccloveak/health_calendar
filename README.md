@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+一个简单的化疗/护理计划生成器，使用Next.js和OpenAI API。
 
-## Getting Started
+## 功能
 
-First, run the development server:
+1. 用户输入化疗/护理计划，生成未来半年内的所有相关日期
+2. 用户可以保存为图片
+3. 用户可以分享给其他人
+4. 用户可以查看历史记录
+5. 用户可以根据记录生成新的计划
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## todo
+1. 更新页面
+2. 加入用户注册，使用supabase
+3. 加入用户登陆
+4. 更新大模型，查找合适的大模型，等待页面前端显示
+5. 提供saas服务
+6. 每个用户免费的使用
+7. 付费按次使用
+8. 上架app
+9. 加入supabase用户的管理页面
+10. 手机端加入保存为图片功能
+11. 更换ui库
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 设计背景
+妈妈需要定期化疗，定期护理，我需要偶然回日本，所以需要一个工具来帮助我管理妈妈的治疗和护理计划。
