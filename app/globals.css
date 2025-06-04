@@ -120,3 +120,25 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* 隐藏左侧小时刻度栏和顶部左侧单元 */
+.rbc-time-header-gutter,
+.rbc-time-gutter {
+  display: none !important;
+}
+/* 移除内容区左侧边框以避免遗留线条 */
+.rbc-time-header-content {
+  border-left: none !important;
+}
+/* （可选）隐藏当前时间指示线 */
+.rbc-current-time-indicator {
+  display: none;
+}
+.rbc-month-row {
+  min-height: 100px;
+}
+
+.rbc-event {
+  font-size: 14px;
+  padding: 2px 4px;
+}

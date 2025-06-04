@@ -9,16 +9,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Fragment, useState } from "react";
 import { format, getDay, parse, parseISO, startOfWeek } from "date-fns";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import enUS from "date-fns/locale/en-US";
-import { useState } from "react";
+// import enUS from "date-fns/locale/en-US";
 import zhCN from "date-fns/locale/zh-CN";
 
 const locales = {
-  "en-US": enUS,
+  // "en-US": enUS,
   "zh-CN": zhCN,
 };
 
@@ -43,6 +43,13 @@ const events = [
     title: "PICC维护",
     start: new Date("2025-06-03"),
     end: new Date("2025-06-03"),
+    allDay: true,
+    type: "picc",
+  },
+  {
+    title: "PICC维护",
+    start: new Date("2025-05-27"),
+    end: new Date("2025-05-27"),
     allDay: true,
     type: "picc",
   },
@@ -124,10 +131,17 @@ export default function CalendarInput() {
         events={events}
         startAccessor="start"
         endAccessor="end"
-        views={["month", "week"]}
-        defaultView="week"
+        views={["month"]}
+        defaultView="month"
         eventPropGetter={eventStyleGetter}
-        style={{ height: "100%" }}
+        style={{ height: 600 }}
+        allDayAccessor={() => true}
+        components={{
+          timeGutterHeader: () => null /* 顶部左侧时间轴标题为空 */,
+          timeSlotWrapper: () => (
+            <Fragment />
+          ) /* （可选）底部时间格子包装为空 */,
+        }}
       />
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent>
