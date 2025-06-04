@@ -9,11 +9,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Fragment, useState } from "react";
-import { format, getDay, parse, parseISO, startOfWeek } from "date-fns";
+import { Locale, format, getDay, parse, parseISO, startOfWeek } from "date-fns";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
 // import enUS from "date-fns/locale/en-US";
 import zhCN from "date-fns/locale/zh-CN";
 
@@ -23,8 +23,33 @@ const locales = {
 };
 
 const localizer = dateFnsLocalizer({
-  format,
-  parse,
+  format: (
+    date: number | Date,
+    formatStr: string,
+    options:
+      | {
+          locale?: Locale;
+          weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+          firstWeekContainsDate?: number;
+          useAdditionalWeekYearTokens?: boolean;
+          useAdditionalDayOfYearTokens?: boolean;
+        }
+      | undefined
+  ) => format(date, formatStr, { ...options, locale: zhCN }),
+  parse: (
+    value: string,
+    formatStr: string,
+    backupDate: number | Date,
+    options:
+      | {
+          locale?: Locale;
+          weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+          firstWeekContainsDate?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+          useAdditionalWeekYearTokens?: boolean;
+          useAdditionalDayOfYearTokens?: boolean;
+        }
+      | undefined
+  ) => parse(value, formatStr, backupDate, { ...options, locale: zhCN }),
   startOfWeek: () => startOfWeek(new Date(), { weekStartsOn: 1 }),
   getDay,
   locales,
@@ -55,6 +80,22 @@ const events = [
   },
 ];
 
+const messages = {
+  allDay: "全天",
+  previous: "上一月",
+  next: "下一月",
+  today: "今天",
+  month: "月",
+  week: "周",
+  day: "日",
+  agenda: "议程",
+  date: "日期",
+  time: "时间",
+  event: "事件",
+  noEventsInRange: "这个范围内没有事件。",
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const eventStyleGetter = (event: any) => {
   let backgroundColor = "#3174ad";
   if (event.type === "picc") backgroundColor = "#F59E0B";
@@ -126,23 +167,20 @@ export default function CalendarInput() {
         {loading ? "生成中..." : "生成日期"}
       </Button>
       {/* <Calendar mode="multiple" selected={markedDates} /> */}
+
       <BigCalendar
         localizer={localizer}
+        messages={messages}
         events={events}
         startAccessor="start"
         endAccessor="end"
         views={["month"]}
         defaultView="month"
         eventPropGetter={eventStyleGetter}
-        style={{ height: 600 }}
+        style={{ height: 800 }}
         allDayAccessor={() => true}
-        components={{
-          timeGutterHeader: () => null /* 顶部左侧时间轴标题为空 */,
-          timeSlotWrapper: () => (
-            <Fragment />
-          ) /* （可选）底部时间格子包装为空 */,
-        }}
       />
+
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent>
           <DialogHeader>
